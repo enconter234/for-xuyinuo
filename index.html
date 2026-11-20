@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a12">
+    <title>给你的礼物</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div id="global-stars" aria-hidden="true"></div>
+
+    <!-- 章节进度点 -->
+    <nav id="section-dots" aria-label="章节导航">
+        <span class="dot active" data-section="0"></span>
+        <span class="dot" data-section="1"></span>
+        <span class="dot" data-section="2"></span>
+        <span class="dot" data-section="3"></span>
+        <span class="dot" data-section="4"></span>
+        <span class="dot" data-section="5"></span>
+        <span class="dot" data-section="6"></span>
+        <span class="dot" data-section="7"></span>
+        <span class="dot" data-section="8"></span>
+        <span class="dot" data-section="9"></span>
+    </nav>
+
+    <!-- Chapter 0 -->
+    <section class="chapter" id="chapter-0" data-index="0">
+        <div class="chapter-content opening-content">
+            <h1 class="opening-title stagger-text">
+                <span>给你的一份</span>
+                <span class="gradient-text">礼 物</span>
+            </h1>
+            <div id="gift-box" class="gift-box" role="button" aria-label="打开礼物" tabindex="0">
+                <div class="gift-box-inner">
+                    <div class="gift-lid"></div>
+                    <div class="gift-body"></div>
+                    <div class="gift-ribbon-v"></div>
+                    <div class="gift-ribbon-h"></div>
+                    <div class="gift-glow"></div>
+                </div>
+            </div>
+            <p class="opening-subtitle">有些话，隔着屏幕说总觉得不够<br>所以这一次，我把它做成了一个网页</p>
+            <button id="open-gift-btn" class="primary-btn" aria-label="打开礼物">打开礼物</button>
+        </div>
+    </section>
+
+    <!-- Chapter 1 -->
+    <section class="chapter" id="chapter-1" data-index="1">
+        <div class="chapter-content story-content">
+            <h2 class="chapter-title">从遇见你开始</h2>
+            <p class="chapter-subtitle">Our Story</p>
+            <p class="together-badge" id="together-badge"></p>
+            <p class="star-hint">轻点星星,点亮我们的记忆</p>
+            <div id="timeline" class="timeline"></div>
+        </div>
+    </section>
+
+    <!-- Chapter 2 -->
+    <section class="chapter" id="chapter-2" data-index="2">
+        <div class="chapter-content memories-content">
+            <h2 class="chapter-title">那些被记录下来的瞬间</h2>
+            <div id="photo-carousel" class="photo-carousel">
+                <div class="photo-track" id="photo-track"></div>
+            </div>
+            <div class="photo-counter" id="photo-counter">01 / 01</div>
+            <p class="photo-caption" id="photo-caption"></p>
+            <div class="swipe-hint">‹ 左右滑动 ›</div>
+        </div>
+    </section>
+
+    <!-- Chapter 3 -->
+    <section class="chapter" id="chapter-3" data-index="3">
+        <div class="chapter-content song-content">
+            <h2 class="chapter-title">一首属于我们的歌</h2>
+            <div class="vinyl-player">
+                <div class="vinyl-disc" id="vinyl-disc">
+                    <div class="vinyl-label"></div>
+                    <div class="vinyl-shine"></div>
+                </div>
+                <div class="song-info">
+                    <p class="song-title" id="song-title-display">我们的歌</p>
+                    <p class="song-artist">For You</p>
+                </div>
+                <div class="player-controls">
+                    <button id="play-pause-btn" class="play-btn" aria-label="播放/暂停">
+                        <svg id="play-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="pause-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+                </div>
+                <div class="progress-container">
+                    <span id="current-time" class="time-label">0:00</span>
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span id="total-time" class="time-label">0:00</span>
+                </div>
+                <audio id="audio-element" preload="metadata"></audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 4 -->
+    <section class="chapter" id="chapter-4" data-index="4">
+        <div class="chapter-content letter-content">
+            <h2 class="chapter-title">我想告诉你的事</h2>
+            <div id="envelope" class="envelope" role="button" aria-label="打开信封" tabindex="0">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
+                <div class="envelope-seal"></div>
+            </div>
+            <p class="envelope-hint" id="envelope-hint">轻点封蜡,拆开这封信</p>
+            <div id="letter-card" class="letter-card" style="display:none;">
+                <div class="letter-text" id="letter-text"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 5 -->
+    <section class="chapter" id="chapter-5" data-index="5">
+        <div class="earth-container" id="earth-container">
+            <div id="earth-overlay" class="earth-overlay">
+                <div id="earth-text-stage" class="earth-text-stage"></div>
+            </div>
+            <button id="replay-earth-btn" class="replay-btn" aria-label="重播动画" style="display:none;">↻ 重播</button>
+        </div>
+    </section>
+
+    <!-- Chapter 6 -->
+    <section class="chapter" id="chapter-6" data-index="6">
+        <div class="chapter-content birthday-content">
+            <h2 class="birthday-title-large">
+                <span>HAPPY</span>
+                <span class="gradient-text">BIRTHDAY</span>
+            </h2>
+            <p class="birthday-chinese">生日快乐</p>
+            <p class="birthday-name" id="birthday-name-display"></p>
+            <p class="birthday-message">今年不能亲手把礼物交给你，<br>所以我把它做成了一个你可以打开的世界。</p>
+            <button id="celebrate-btn" class="celebrate-btn" aria-label="点一下庆祝">
+                <span class="celebrate-btn-ring"></span>
+                <span class="celebrate-btn-content">
+                    <span class="celebrate-btn-icon">🎂</span>
+                    <span class="celebrate-btn-text">点一下</span>
+                </span>
+            </button>
+            <p id="celebrate-success" class="celebrate-success" aria-live="polite">🎉&nbsp;生日快乐&nbsp;🎉</p>
+        </div>
+        <div id="celebration-flash" class="celebration-flash" aria-hidden="true"></div>
+        <div id="celebration-container" class="celebration-container"></div>
+    </section>
+
+    <!-- Chapter 7 -->
+    <section class="chapter" id="chapter-7" data-index="7">
+        <div class="chapter-content onemore-content">
+            <h2 class="chapter-title">你以为结束了吗？</h2>
+            <p class="chapter-subtitle">如果你愿意，再点一下。</p>
+            <button id="reveal-btn" class="primary-btn" aria-label="再点一下">再点一下</button>
+        </div>
+    </section>
+
+    <!-- Chapter 8 -->
+    <section class="chapter" id="chapter-8" data-index="8">
+        <div class="chapter-content future-content">
+            <h2 class="chapter-title">给未来的我们</h2>
+            <div class="future-letter">
+                <p id="future-letter-text"></p>
+                <p class="future-signature">Happy Birthday. <span class="heart">♡</span></p>
+                <p class="future-author" id="future-author"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 9 最后的最后 -->
+    <section class="chapter" id="chapter-9" data-index="9">
+        <div class="chapter-content">
+            <h2 class="chapter-title">最后的最后</h2>
+            <p class="chapter-subtitle">抬头看看夜空吧</p>
+            <button id="finale-btn" class="primary-btn" aria-label="看向夜空">看向夜空</button>
+        </div>
+    </section>
+
+    <!-- 粒子剧场 -->
+    <div id="particle-stage" class="particle-stage" aria-hidden="true">
+        <div id="particle-canvas" class="particle-canvas"></div>
+        <p id="particle-caption" class="particle-stage-caption"></p>
+        <div id="particle-names" class="particle-names"></div>
+        <button id="particle-close" class="particle-close" aria-label="关闭">×</button>
+    </div>
+
+    <script src="script.js" type="module"></script>
+    <script src="romance.js" type="module"></script>
+</body>
+</html>
